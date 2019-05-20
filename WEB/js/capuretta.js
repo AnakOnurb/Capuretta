@@ -12,7 +12,8 @@ function proxOrcamento()
     }
     else
     {
-        window.open("orcamento1.html", "_self");
+        callAPI();
+        //window.open("orcamento1.html", "_self");
     }
 }
 
@@ -36,4 +37,25 @@ function adicionaPartes()
         document.getElementById("parte2").innerHTML = texto;
         contador++;
     }
+}
+
+function callAPI()
+{
+  url = "http://localhost:8079/Capuretta/CandidatoAPI?name=bruno&id=02&cidade=dsfdf";
+  console.log(url);
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      console.log('Success!', JSON.parse(xhr.responseText));
+      resposta = JSON.parse(xhr.responseText);
+      console.log(xhr.responseText);
+    }
+    else {
+      let error_message= "Error <br>" + xhr.statusText;
+      console.log(error_message);
+    }
+    console.log("Pages Retrieved");
+  };
+  xhr.open('POST', url, false);
+  xhr.send();
 }
