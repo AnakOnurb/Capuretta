@@ -2,7 +2,6 @@ package capuretta.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonObject;
-
-import capuretta.util.DBUtils;
+import capuretta.dao.CandidatoDAO;
+import capuretta.model.Candidato;
 
 /**
  * Servlet implementation class ServicoAPI
@@ -39,11 +37,9 @@ public class CandidatoAPI extends HttpServlet {
 		// Authorize (allow) all domains to consume the content
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         
-//		JsonObject jsonResponse = new JsonObject();
-//		jsonResponse.addProperty("ID", 1);
-//		jsonResponse.addProperty("Name", "Bruno");
-//		response.getWriter().print(jsonResponse);
-		
+		String jsonResponse = CandidatoDAO.ReadAll();
+		if(jsonResponse != null)
+			response.getWriter().print(jsonResponse);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -51,12 +47,18 @@ public class CandidatoAPI extends HttpServlet {
 		// Authorize (allow) all domains to consume the content
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         
-        //create - String table_name, String[] fields_name, String[] fields_values
-        ArrayList<String> fields_name = new ArrayList<String>();
-        ArrayList<String> fields_values = new ArrayList<String>();
-        
         try
         {
+        	String nome = request.getParameter("nome");
+        	String cpf = request.getParameter("cpf"); 
+        	String endereco = request.getParameter("endereco");
+        	String telefone = request.getParameter("telefone");
+        	String descricao = request.getParameter("descricao");
+        	
+        	System.out.println(nome + cpf + endereco + telefone + descricao + "");
+        	
+        	Candidato c = CandidatoDAO.Build(nome, cpf, endereco, telefone, descricao);
+        	CandidatoDAO.Create(c);
 		}
         catch (Exception e) 
         {
@@ -69,7 +71,7 @@ public class CandidatoAPI extends HttpServlet {
 		// Authorize (allow) all domains to consume the content
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         
-        
+        //TODO: create update option
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -77,6 +79,6 @@ public class CandidatoAPI extends HttpServlet {
 		// Authorize (allow) all domains to consume the content
         ((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "*");
         
-        
+      //TODO: create delete option
 	}
 }

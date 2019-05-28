@@ -81,25 +81,29 @@
               <form action="/action_page.php">
                   <p></p>
                   Nome:<br>
-                  <input size=60 type="text" name="firstname">
+                  <input id="nome" size=60 type="text" name="firstname">
                   <br>
                   <p></p>
                   CPF:<br>
-                  <input size=60 id= cpf type="text" name="lastname" value="123.456.789-10" style="color: grey" onFocus="apagaTexto(this)">
+                  <input size=60 id="cpf" type="text" name="cpf" value="123.456.789-10" style="color: grey" onFocus="apagaTexto(this)">
                   <br>
                   <p></p>
                   Endereço:<br>
-                  <input size=60 id= end type="text" name="lastname" value="(11)91234-5678" style="color: grey" onFocus="apagaTexto(this)">
+                  <input size=60 id="endereco" type="text" name="endereco" value="(11)91234-5678" style="color: grey" onFocus="apagaTexto(this)">
                   <br>
                   <p></p>
                   Telefone:<br>
-                  <input size=60 id= telefone type="text" name="lastname" value="(11)91234-5678" style="color: grey" onFocus="apagaTexto(this)">
+                  <input size=60 id="telefone" type="text" name="telefone" value="(11)91234-5678" style="color: grey" onFocus="apagaTexto(this)">
                   <br>
                   <p></p>
                   Por que você quer trabalhar com o estúdio Capuretta?<br>
-                  <textarea rows=10 cols=60 id= motivo placeholder="Descreve pra gente" style="color: grey" onFocus="apagaTexto(this)"></textarea>
+                  <textarea rows=10 cols=60 id="motivo" placeholder="Descreva para nós" style="color: grey" onFocus="apagaTexto(this)"></textarea>
+                  <br>
+                  <p></p>
+                  Envie seu currículo:<br>
+                  <input size=60 id="curr" type="file" name="curr" value="" style="color: grey">
                   <br><br>
-                  <p><a class="btn btn-lg btn-primary" href="orcamento.html" role="button" style="float: right">Enviar meus dados</a></p>
+                  <p><a class="btn btn-lg btn-primary" onclick="enviarCurriculo();" role="button" style="float: right; color:white;">Enviar meus dados</a></p>
                 </form>
             </div>
         </div>

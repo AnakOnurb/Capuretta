@@ -15,10 +15,11 @@ public class DBConn {
         {
             try {
 
-                String driver = "com.mysql.jdbc.Driver";
-                String url = "jdbc:mysql://localhost:3306/capuretta_db";
+                String driver = "com.mysql.cj.jdbc.Driver";
+                String url = "jdbc:mysql://localhost:3306/capuretta_db?useTimezone=true&serverTimezone=UTC";
                 String user = "root";
-                String password = "fttec";
+                //String password = "fttec";
+                String password = "root";
             	
             	Class.forName(driver); //verifica se o driver do bd está no class path...
                 

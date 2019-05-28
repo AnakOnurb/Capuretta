@@ -19,7 +19,7 @@
 
   </head>
 
-  <body>
+  <body onload="continuarOrcamento();">
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -82,30 +82,89 @@
             <h2>Insira seus dados para realizar o orçamento</h2>
               <form action="/action_page.php">
                   <p></p>
-                Serviço:<br>
-                  <select style="width: 450px" name="select">
-                    <option value="valor0" disabled selected>Selecione uma opção</option>
-                    <option value="valor1">Produção musical</option>
-                    <option value="valor2">Gravação</option>
-                    <option value="valor3">Mixagem e masterização</option>
-                    <option value="valor3">Produção de vídeo</option>
+                  Serviço:<br>
+                  <select id="s" style="width: 450px" name="select">
+                    <option value="0" disabled selected>Selecione uma opção</option>
+                    <option value="1">Produção musical</option>
+                    <option value="2">Gravação</option>
+                    <option value="3">Mixagem e masterização</option>
+                    <option value="4">Produção de vídeo</option>
                   </select>
                   <br>
                   <p></p>
                   Quantidade de horas:<br>
-                  <select style="width: 450px" name="select">
-                    <option value="valor0" disabled selected>Selecione a quantidade de horas</option>
-                    <option value="valor1">Período matutino de 5h</option>
-                    <option value="valor2">Período vespertino de 5h</option>
-                    <option value="valor3">Período de 12h</option>
+                  <select id="h" style="width: 450px" name="select">
+                    <option value="0" disabled selected>Selecione a quantidade de horas</option>
+                    <option value="matutino">Período matutino de 5h</option>
+                    <option value="vespertino">Período vespertino de 5h</option>
+                    <option value="integral">Período integral de 12h</option>
                   </select>
                   <br><br>
-                  <div id ="parte"></div>
-                  <div id ="parte1"></div>
-                  <div id ="parte2"></div>
-                  <p><a id="botao" class="btn btn-lg btn-primary" role="button" style="float: right; color: white" onclick="adicionaPartes()">Adicionar serviço</a></p>
+                  <div id ="parte" style="display:none;">
+                    Serviço:<br>
+                    <select id="s0" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione uma opção</option>
+                      <option value="1">Produção musical</option>
+                      <option value="2">Gravação</option>
+                      <option value="3">Mixagem e masterização</option>
+                      <option value="4">Produção de vídeo</option>
+                    </select>
+                    <br>
+                    <p></p>
+                    Quantidade de horas:<br>
+                    <select id="h0" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione a quantidade de horas</option>
+                      <option value="matutino">Período matutino de 5h</option>
+                      <option value="vespertino">Período vespertino de 5h</option>
+                      <option value="integral">Período integral de 12h</option>
+                    </select>
+                    <br><br>
+                  </div>
+                  <div id ="parte1" style="display:none;">
+                    Serviço:<br>
+                    <select id="s1" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione uma opção</option>
+                      <option value="1">Produção musical</option>
+                      <option value="2">Gravação</option>
+                      <option value="3">Mixagem e masterização</option>
+                      <option value="4">Produção de vídeo</option>
+                    </select>
+                    <br>
+                    <p></p>
+                    Quantidade de horas:<br>
+                    <select id="h1" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione a quantidade de horas</option>
+                      <option value="matutino">Período matutino de 5h</option>
+                      <option value="vespertino">Período vespertino de 5h</option>
+                      <option value="integral">Período integral de 12h</option>
+                    </select>
+                    <br><br>
+                  </div>
+                  <div id ="parte2" style="display:none;">
+                    Serviço:<br>
+                    <select id="s2" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione uma opção</option>
+                      <option value="1">Produção musical</option>
+                      <option value="2">Gravação</option>
+                      <option value="3">Mixagem e masterização</option>
+                      <option value="4">Produção de vídeo</option>
+                    </select>
+                    <br>
+                    <p></p>
+                    Quantidade de horas:<br>
+                    <select id="h2" style="width: 450px" name="select">
+                      <option value="0" disabled selected>Selecione a quantidade de horas</option>
+                      <option value="matutino">Período matutino de 5h</option>
+                      <option value="vespertino">Período vespertino de 5h</option>
+                      <option value="integral">Período integral de 12h</option>
+                    </select>
+                    <br><br>
+                  </div>
+                  <p><a id="botaoAddParte" class="btn btn-lg btn-primary" role="button" style="float: right; color: white" onclick="adicionaPartes()">Adicionar serviço</a></p>
                   <br><br>
-                  <p><a class="btn btn-lg btn-primary" role="button" style="float: right; color: white">Criar estimativa e enviar para análise</a></p>
+                  <p><a id="botaoSubParte" class="btn btn-lg btn-primary" role="button" style="float: right; color: white; display:none;" onclick="removePartes()">Remover serviço</a></p>
+                  <br><br>
+                  <p><a class="btn btn-lg btn-primary" role="button" style="float: right; color: white" onclick="estimar();">Criar estimativa e enviar para análise</a></p>
                 </form>
             </div>
         </div>

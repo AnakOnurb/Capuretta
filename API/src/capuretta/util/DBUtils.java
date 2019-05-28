@@ -2,7 +2,6 @@ package capuretta.util;
 
 import capuretta.util.DBConn;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DBUtils 
 {
@@ -11,7 +10,7 @@ public class DBUtils
 		return DBConn.getConnection();
 	}
 	
-	public static boolean create(String table_name, String[] fields_name, String[] fields_values)
+	public static boolean create(String table_name, Object[] fields_name, Object[] fields_values)
 	{
 		boolean sucesso = false;
 		
@@ -20,7 +19,7 @@ public class DBUtils
 		
 		for(int i = 0; i < fields_name.length; i++)
 		{
-			sqlCommandString += fields_name[i] + ",";
+			sqlCommandString += fields_name[i].toString().replace("|","") + ",";
 		}
 		sqlCommandString =sqlCommandString.substring(0, sqlCommandString.length() - 1);
 		
@@ -28,7 +27,14 @@ public class DBUtils
 		
 		for(int i = 0; i < fields_values.length; i++)
 		{
-			sqlCommandString += fields_values[i] + ",";
+			if(fields_name[i].toString().contains("|"))
+			{
+				sqlCommandString += fields_values[i] + ",";
+			}
+			else
+			{
+				sqlCommandString += "'"+fields_values[i] + "',";	
+			}
 		}
 		sqlCommandString = sqlCommandString.substring(0, sqlCommandString.length() - 1);
 		
@@ -53,9 +59,9 @@ public class DBUtils
 		{
 			try 
 			{
-				conn.close();
+				//conn.close();
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 			}
@@ -64,7 +70,7 @@ public class DBUtils
 		return sucesso;
 	}
 
-	public static ResultSet read(String table_name, String[] fields_name, String condition)
+	public static ResultSet read(String table_name, Object[] fields_name, String condition)
 	{
 		ResultSet rs = null;
 		
@@ -97,9 +103,9 @@ public class DBUtils
 		{
 			try 
 			{
-				conn.close();
+				//conn.close();
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 			}
@@ -108,7 +114,7 @@ public class DBUtils
 		return rs;
 	}
 
-	public static ResultSet read(String table_name, String[] fields_name)
+	public static ResultSet read(String table_name, Object[] fields_name)
 	{
 		ResultSet rs = null;
 		
@@ -141,9 +147,9 @@ public class DBUtils
 		{
 			try 
 			{
-				conn.close();
+				//conn.close();
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 			}
@@ -152,14 +158,14 @@ public class DBUtils
 		return rs;
 	}
 
-	public static ResultSet read(String table_name)
+	public static ResultSet read(String table_name, String condition)
 	{
 		ResultSet rs = null;
 		
 		//generate generic insert string
-		String sqlCommandString = "SELECT * ";
+		String sqlCommandString = "SELECT *";
 		
-		sqlCommandString += "FROM " + table_name + ";";
+		sqlCommandString += "FROM " + table_name + "WHERE " + condition + ";";
 	
 		System.out.println(sqlCommandString);
 		
@@ -179,9 +185,9 @@ public class DBUtils
 		{
 			try 
 			{
-				conn.close();
+				//conn.close();
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 			}
@@ -189,8 +195,47 @@ public class DBUtils
 		
 		return rs;
 	}
+	
+	public static ResultSet read(String table_name)
+	{
+		ResultSet rs = null;
+		
+		//generate generic insert string
+		String sqlCommandString = "SELECT * ";
+		
+		sqlCommandString += "FROM " + table_name + ";";
+	
+		System.out.println(sqlCommandString);
+		
+		Connection conn = null;
+		//start connection
+		try 
+		{
+			conn = getConnection();
+			Statement stmt = conn.createStatement();
+			rs = stmt.executeQuery(sqlCommandString);
+			return rs;
+		}
+		catch (Exception e) 
+		{
+			System.out.println("Erro ao ler: " + e.getMessage());
+		}
+		finally
+		{
+			try 
+			{
+				//conn.close();
+			} 
+			catch (Exception e) 
+			{
+				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+			}
+		}
+		
+		return null;
+	}
 
-	public static boolean update(String table_name, String[] fields_name, String[] fields_values, String condition)
+	public static boolean update(String table_name, Object[] fields_name, Object[] fields_values, String condition)
 	{
 		boolean sucesso = false;
 	
@@ -226,9 +271,9 @@ public class DBUtils
 			{
 				try 
 				{
-					conn.close();
+					//conn.close();
 				} 
-				catch (SQLException e) 
+				catch (Exception e) 
 				{
 					System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 				}
@@ -266,9 +311,9 @@ public class DBUtils
 		{
 			try 
 			{
-				conn.close();
+				//conn.close();
 			} 
-			catch (SQLException e) 
+			catch (Exception e) 
 			{
 				System.out.println("Erro ao fechar a conexão: " + e.getMessage());
 			}
